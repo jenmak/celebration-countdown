@@ -9,8 +9,8 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { addMonths } from 'date-fns';
 import { SmallCalendar } from "@/components/SmallCalendar";
-import { CalendarTile } from "@/components/CalendarTile";
-import { CalendarContainer } from "@/components/CalendarContainer";
+import { CalendarTile } from "@/components/Calendar/CalendarTile";
+import { CalendarContainer } from "@/components/Calendar/CalendarContainer";
 
 interface User {
   id: string;
@@ -110,19 +110,17 @@ export default function Dashboard() {
           <CalendarContainer>
             <div className="grid grid-cols-1 lg:grid-cols-8 gap-8">
               <div className="lg:col-span-5">
-                <div className="scale-75 origin-top-left">
-                  <Calendar
-                    selectedDate={selectedDate}
-                    onSelect={(date) => date && handleDateClick(date)}
-                    onAddCelebration={handleAddCelebration}
-                    onDateClick={handleDateClick}
-                  />
-                </div>
+                <Calendar
+                  selectedDate={selectedDate}
+                  onSelect={(date) => date && handleDateClick(date)}
+                  onAddCelebration={handleAddCelebration}
+                  onDateClick={handleDateClick}
+                />
               </div>
 
               <div className="lg:col-span-3 lg:pl-[30px]">
                 <div className="space-y-2">
-                  <SmallCalendar
+                  {/* <SmallCalendar
                     monthOffset={1}
                     onSelect={(date) => date && handleDateClick(date)}
                     onAddCelebration={handleAddCelebration}
@@ -139,7 +137,7 @@ export default function Dashboard() {
                     onSelect={(date) => date && handleDateClick(date)}
                     onAddCelebration={handleAddCelebration}
                     onDateClick={handleDateClick}
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
