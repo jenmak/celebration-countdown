@@ -11,57 +11,73 @@ datasource db {
 }
 
 model User {
-  id              String           @id @default(cuid())
-  name            String
-  image           String?
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  birthdays       Birthday[]       @relation("BirthdayOwner")
-  collaborations  Collaboration[]
-  sharedBirthdays SharedBirthday[]
-  settings        UserSettings?
+  id            String        @id @default(cuid())
+  name          String?
+  email         String        @unique
+  emailVerified DateTime?
+  image         String?
+  password      String
+  accounts      Account[]
+  sessions      Session[]
+  celebrations  Celebration[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 }
 
-model UserSettings {
-  id               String   @id @default(cuid())
-  userId           String   @unique
-  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  notificationDays Int      @default(7)
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
 }
 
-model Birthday {
-  id            String           @id @default(cuid())
-  name          String
-  date          DateTime
-  notes         String?
-  owner         User             @relation("BirthdayOwner", fields: [ownerId], references: [id])
-  ownerId       String
-  sharedWith    SharedBirthday[]
-  collaborators Collaboration[]
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
-model SharedBirthday {
-  id         String   @id @default(cuid())
-  birthday   Birthday @relation(fields: [birthdayId], references: [id])
-  birthdayId String
-  friend     User     @relation(fields: [friendId], references: [id])
-  friendId   String
-  createdAt  DateTime @default(now())
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-  @@unique([birthdayId, friendId])
+  @@unique([identifier, token])
 }
 
-model Collaboration {
-  id         String   @id @default(cuid())
-  birthday   Birthday @relation(fields: [birthdayId], references: [id])
-  birthdayId String
-  user       User     @relation(fields: [userId], references: [id])
-  userId     String
-  createdAt  DateTime @default(now())
+enum CelebrationType {
+  BIRTHDAY
+  ANNIVERSARY
+  HOLIDAY
+  OTHER
+}
 
-  @@unique([birthdayId, userId])
+model Celebration {
+  id          String          @id @default(cuid())
+  title       String
+  description String
+  type        CelebrationType
+  date        DateTime
+  time        String?
+  location    String?
+  userId      String
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
 }
