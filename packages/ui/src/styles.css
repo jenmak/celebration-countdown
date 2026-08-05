@@ -1,0 +1,23 @@
+:root {
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-dark: #2d2d29;
+  --color-gray-700: #7a7a73;
+  --color-gray-300: #d1d1c6;
+  --color-gray-100: #f4f4f0;
+  --bg-page: #fffdfb;
+  --font-sans: system-ui, -apple-system, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-dark);
+  background: var(--bg-page);
+}

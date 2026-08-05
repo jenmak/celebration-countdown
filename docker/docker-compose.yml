@@ -11,7 +11,4 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - rem_dev_data:/var/lib/postgresql/data
-
-volumes:
-  rem_dev_data:
+      - ./.dev_data:/var/lib/postgresql/data

@@ -1,0 +1,47 @@
+{
+  "name": "@celebrationcountdown/orm",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Shared Prisma ORM for Celebration Countdown",
+  "main": "dist/generated/client/client.js",
+  "types": "dist/generated/client/client.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/generated/client/client.d.ts",
+      "default": "./dist/generated/client/client.js"
+    },
+    "./dist/generated/client": {
+      "types": "./dist/generated/client/client.d.ts",
+      "default": "./dist/generated/client/client.js"
+    }
+  },
+  "files": [
+    "dist",
+    "prisma",
+    "tsconfig.json"
+  ],
+  "scripts": {
+    "build": "npm run prisma:generate && tsc && node scripts/build-client.mjs",
+    "prisma:generate": "prisma generate",
+    "prisma:studio": "prisma studio",
+    "migrate": "npm run prisma:generate && prisma migrate deploy",
+    "migrate:create": "prisma migrate dev --create-only",
+    "migrate:dev": "npm run prisma:generate && prisma migrate dev",
+    "migrate:reset": "prisma migrate reset -f",
+    "migrate:status": "prisma migrate status",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "dotenv": "^17.2.3",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "@types/pg": "^8.15.5",
+    "prisma": "^7.8.0",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.0"
+  }
+}

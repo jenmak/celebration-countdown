@@ -1,0 +1,26 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "./generated/client"
+  runtime      = "nodejs"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// DATA MIGRATION MODEL
+model DataMigration {
+  id String @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  migrationId   String @map("migration_id") @db.Uuid
+  migrationName String @map("migration_name") @db.Text
+
+  completed Boolean @default(false) @db.Boolean
+
+  createdAt DateTime  @default(dbgenerated("(current_timestamp at time zone 'utc')")) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@id([id])
+  @@map("_prisma_data_migrations")
+}

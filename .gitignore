@@ -21,6 +21,7 @@ yarn-error.log*
 .env
 .env.*
 !.env.example
+!.env.development.example
 
 # TypeScript
 *.tsbuildinfo
@@ -47,9 +48,4 @@ docker/.dev_data/
 
 # Misc
 *.tgz
-.tern-port
-.dynamodb/
-.fusebox/
-.serverless/
-.docusaurus/
 .vite/

@@ -2,7 +2,7 @@
   "name": "celebration-countdown",
   "version": "0.0.1",
   "private": true,
-  "description": "Celebration Countdown monorepo — backend, frontend, ORM, UI, and mobile",
+  "description": "Celebration Countdown monorepo — backend, frontend, mobile, ORM, and UI",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -26,13 +26,14 @@
     "dev:frontend": "npm run dev -w @celebrationcountdown/frontend",
     "dev:mobile": "npm run start -w @celebrationcountdown/mobile",
     "storybook": "npm run storybook -w @celebrationcountdown/ui",
-    "chromatic": "npm run chromatic -w @celebrationcountdown/ui",
     "lint": "npm run lint --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "db:up": "docker compose -f docker/docker-compose.yml up -d",
     "db:down": "docker compose -f docker/docker-compose.yml down",
-    "prisma:generate": "npm run prisma:generate -w @celebrationcountdown/orm",
-    "migrate:dev": "npm run migrate:dev -w @celebrationcountdown/orm"
+    "db:generate": "npm run prisma:generate -w @celebrationcountdown/orm",
+    "db:migrate": "npm run migrate:dev -w @celebrationcountdown/orm",
+    "db:deploy": "npm run migrate -w @celebrationcountdown/orm",
+    "db:studio": "npm run prisma:studio -w @celebrationcountdown/orm"
   },
   "dependencies": {
     "react": "19.1.0",

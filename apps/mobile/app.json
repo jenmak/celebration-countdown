@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "celebrationcountdown",
+    "slug": "celebrationcountdown",
+    "scheme": "celebrationcountdown",
+    "version": "0.0.1",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "platforms": ["ios", "android"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.celebrationcountdown.app"
+    },
+    "android": {
+      "package": "com.celebrationcountdown.app"
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "autolinkingModuleResolution": true
+    }
+  }
+}
