@@ -1,0 +1,41 @@
+{
+  "name": "celebration-countdown",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Celebration Countdown monorepo — backend, frontend, ORM, UI, and mobile",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=10.0.0"
+  },
+  "overrides": {
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "build:orm": "npm run build -w @celebrationcountdown/orm",
+    "build:shared": "npm run build -w @celebrationcountdown/shared",
+    "build:ui": "npm run build -w @celebrationcountdown/ui",
+    "build:backend": "npm run build -w @celebrationcountdown/backend",
+    "build:frontend": "npm run build -w @celebrationcountdown/frontend",
+    "dev:backend": "npm run start:dev -w @celebrationcountdown/backend",
+    "dev:frontend": "npm run dev -w @celebrationcountdown/frontend",
+    "dev:mobile": "npm run start -w @celebrationcountdown/mobile",
+    "storybook": "npm run storybook -w @celebrationcountdown/ui",
+    "chromatic": "npm run chromatic -w @celebrationcountdown/ui",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "db:up": "docker compose -f docker/docker-compose.yml up -d",
+    "db:down": "docker compose -f docker/docker-compose.yml down",
+    "prisma:generate": "npm run prisma:generate -w @celebrationcountdown/orm",
+    "migrate:dev": "npm run migrate:dev -w @celebrationcountdown/orm"
+  },
+  "dependencies": {
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  }
+}
