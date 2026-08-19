@@ -24,3 +24,77 @@ model DataMigration {
   @@id([id])
   @@map("_prisma_data_migrations")
 }
+
+// DATA MODELS
+model User {
+  id String @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  cognitoSub String @map("cognito_sub") @db.Text
+  email      String @db.Text
+  firstName  String @map("first_name") @db.Text
+  lastName   String @map("last_name") @db.Text
+
+  createdAt DateTime  @default(dbgenerated("(current_timestamp at time zone 'utc')")) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  Contact          Contact[]
+  GiftWishlistItem GiftWishlistItem[] @relation("GiftWishlistItemAddedBy")
+
+  @@id([id])
+  @@unique([cognitoSub])
+  @@unique([email])
+  @@map("user")
+}
+
+model Contact {
+  id String @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  userId       String   @map("user_id") @db.Uuid
+  fullName     String   @map("full_name") @db.Text
+  photoUrl     String?  @map("photo_url") @db.Text
+  birthdate    DateTime @map("birthdate") @db.Date
+  relationship String   @db.Text
+  notes        String?  @db.Text
+
+  amazonGiftFacets        Json?     @map("amazon_gift_facets")
+  amazonFacetsNotesHash   String?   @map("amazon_facets_notes_hash") @db.Text
+  amazonFacetsGeneratedAt DateTime? @map("amazon_facets_generated_at") @db.Timestamp(6)
+
+  createdAt DateTime  @default(dbgenerated("(current_timestamp at time zone 'utc')")) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  User             User               @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  GiftWishlistItem GiftWishlistItem[]
+
+  @@id([id])
+  @@index([userId, relationship])
+  @@map("contact")
+}
+
+model GiftWishlistItem {
+  id String @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  contactId      String   @map("contact_id") @db.Uuid
+  productName    String   @map("product_name") @db.Text
+  brand          String?  @db.Text
+  price          Decimal? @db.Decimal(10, 2)
+  amazonUrl      String   @map("amazon_url") @db.Text
+  imageUrl       String?  @map("image_url") @db.Text
+  /// SAVED | IN_CART | PURCHASED — Amazon does not expose cart/purchase webhooks,
+  /// so this is set when the shopper returns from Amazon and confirms status.
+  purchaseStatus String   @default("SAVED") @map("purchase_status") @db.Text
+  isPurchased    Boolean  @default(false) @map("is_purchased") @db.Boolean
+  addedByUserId  String   @map("added_by_user_id") @db.Uuid
+
+  createdAt DateTime  @default(dbgenerated("(current_timestamp at time zone 'utc')")) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  Contact Contact @relation(fields: [contactId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  User    User    @relation("GiftWishlistItemAddedBy", fields: [addedByUserId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([id])
+  @@index([contactId])
+  @@index([addedByUserId])
+  @@index([contactId, purchaseStatus])
+  @@map("gift_wishlist_item")
+}

@@ -8,8 +8,4 @@ export class AppConfigService {
   get nodeEnv(): string {
     return this.configService.get('app.nodeEnv')
   }
-
-  get port(): number {
-    return this.configService.get('app.port')
-  }
 }

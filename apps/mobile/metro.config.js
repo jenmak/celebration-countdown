@@ -4,10 +4,12 @@ const path = require('node:path')
 /** @type {import('expo/metro-config').MetroConfig} */
 const config = getDefaultConfig(__dirname)
 
+const projectRoot = __dirname
 const workspaceRoot = path.resolve(__dirname, '../..')
 const reactPath = path.resolve(workspaceRoot, 'node_modules/react')
 const reactNativePath = path.resolve(workspaceRoot, 'node_modules/react-native')
 
+config.projectRoot = projectRoot
 config.watchFolders = [workspaceRoot]
 config.resolver.nodeModulesPaths = [
   path.resolve(__dirname, 'node_modules'),

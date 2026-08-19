@@ -14,7 +14,7 @@ export default registerAs('app', (): IAppConfig => {
       joi: Joi.string().valid('development', 'staging', 'production'),
     },
     port: {
-      value: parseInt(process.env.PORT || process.env.APP_PORT || '3001', 10),
+      value: parseInt(process.env.PORT) || 3001,
       joi: Joi.number(),
     },
   }

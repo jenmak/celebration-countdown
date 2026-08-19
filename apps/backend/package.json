@@ -15,6 +15,7 @@
     "test": "npm run typecheck"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.115.0",
     "@celebrationcountdown/orm": "*",
     "@celebrationcountdown/shared": "*",
     "@nestjs/common": "^11.1.8",
@@ -29,7 +30,11 @@
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",
     "rimraf": "^6.0.1",
-    "rxjs": "^7.8.2"
+    "rxjs": "^7.8.2",
+    "@aws-sdk/client-cognito-identity-provider": "^3.848.0",
+    "@aws-sdk/client-s3": "^3.848.0",
+    "@nestjs-cognito/auth": "^2.5.1",
+    "multer": "^2.0.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^11.0.10",
@@ -38,6 +43,7 @@
     "@types/node": "^24.9.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "4.2.0",
-    "typescript": "~5.8.0"
+    "typescript": "~5.8.0",
+    "@types/multer": "^1.4.12"
   }
 }

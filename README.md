@@ -1,6 +1,6 @@
 # Celebration Countdown
 
-npm workspaces monorepo for Celebration Countdown — NestJS API, Vite frontend, Expo mobile, Prisma ORM, and a Storybook design system.
+npm workspaces monorepo for Celebration Countdown — NestJS API, Vite frontend, Expo mobile skeleton, Prisma ORM, and a Storybook design system.
 
 ## Structure
 
@@ -8,7 +8,7 @@ npm workspaces monorepo for Celebration Countdown — NestJS API, Vite frontend,
 apps/
   backend/     NestJS API (@celebrationcountdown/backend)
   frontend/    Vite + React (@celebrationcountdown/frontend)
-  mobile/      Expo + expo-router (@celebrationcountdown/mobile)
+  mobile/      Expo + expo-router skeleton (@celebrationcountdown/mobile)
 packages/
   orm/         Prisma 7 shared client (@celebrationcountdown/orm)
   shared/      Shared types and utilities (@celebrationcountdown/shared)
@@ -46,7 +46,7 @@ npm run db:migrate
 |---|---|
 | `npm run dev:backend` | NestJS API on port `3001` |
 | `npm run dev:frontend` | Vite app on port `3000` |
-| `npm run dev:mobile` | Expo mobile |
+| `npm run dev:mobile` | Expo mobile skeleton |
 | `npm run storybook` | UI Storybook on port `6006` |
 
 ## Database
