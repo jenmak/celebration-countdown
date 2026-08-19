@@ -21,10 +21,26 @@ export class ApiError extends Error {
 
 type Envelope<T> = { data: T; statusCode: number; message?: string }
 
-type RequestOptions = {
+export type RequestOptions = {
   method?: 'GET' | 'POST' | 'PATCH' | 'DELETE'
   body?: unknown
   token?: string | null
+}
+
+/**
+ * A request that already carries the signed-in user's token. `AuthProvider`
+ * supplies one so API modules never have to touch tokens themselves.
+ */
+export type AuthorizedRequest = <T>(
+  path: string,
+  options?: Omit<RequestOptions, 'token'>,
+) => Promise<T>
+
+/** Turns anything thrown by a request into copy that's safe to show a user. */
+export function toErrorMessage(error: unknown): string {
+  return error instanceof ApiError
+    ? error.message
+    : 'Something went wrong. Please try again.'
 }
 
 function readErrorMessage(payload: unknown, status: number): string {

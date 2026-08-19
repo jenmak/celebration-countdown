@@ -15,7 +15,7 @@ type Props = TextInputProps & {
   error?: string
 }
 
-export function TextField({ label, accessory, error, ...rest }: Props) {
+export function TextField({ label, accessory, error, style, ...rest }: Props) {
   const [focused, setFocused] = useState(false)
 
   return (
@@ -26,14 +26,15 @@ export function TextField({ label, accessory, error, ...rest }: Props) {
       </View>
       <TextInput
         placeholderTextColor={colors.placeholder}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        {...rest}
         style={[
           styles.input,
           focused && styles.inputFocused,
           !!error && styles.inputError,
+          style,
         ]}
-        onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
-        {...rest}
       />
       {error ? <Text style={styles.error}>{error}</Text> : null}
     </View>

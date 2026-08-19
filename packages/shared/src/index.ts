@@ -12,6 +12,19 @@ export {
 } from './enums/wishlistPurchaseStatus'
 
 export {
+  UPCOMING_BIRTHDAY_LIMIT,
+  birthdayCountdown,
+  compareByUpcomingBirthday,
+  daysInMonth,
+  formatPlainDate,
+  isValidPlainDate,
+  parsePlainDate,
+  sortByUpcomingBirthday,
+  toPlainDate,
+} from './birthdays/countdown'
+export type { BirthdayCountdown, PlainDate } from './birthdays/countdown'
+
+export {
   FALLBACK_AMAZON_FACET,
   buildAmazonProductUrl,
   buildAmazonSearchKeywords,

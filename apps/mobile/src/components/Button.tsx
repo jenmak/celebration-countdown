@@ -10,7 +10,7 @@ import { colors, radius, space, type } from '../theme/tokens'
 type Props = Omit<PressableProps, 'children'> & {
   label: string
   loading?: boolean
-  variant?: 'primary' | 'secondary' | 'ghost'
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
 }
 
 export function Button({
@@ -34,7 +34,7 @@ export function Button({
         styles.base,
         variant === 'primary' && styles.primary,
         variant === 'secondary' && styles.secondary,
-        variant === 'ghost' && styles.ghost,
+        (variant === 'ghost' || variant === 'danger') && styles.ghost,
         state.pressed && !isDisabled && isFilled && styles.primaryPressed,
         state.pressed && !isDisabled && !isFilled && styles.pressedSoft,
         isDisabled && styles.disabled,
@@ -44,7 +44,13 @@ export function Button({
       {loading ? (
         <ActivityIndicator color={isFilled ? colors.white : colors.accent} />
       ) : (
-        <Text style={[styles.label, !isFilled && styles.labelAccent]}>
+        <Text
+          style={[
+            styles.label,
+            !isFilled && styles.labelAccent,
+            variant === 'danger' && styles.labelDanger,
+          ]}
+        >
           {label}
         </Text>
       )}
@@ -87,5 +93,8 @@ const styles = StyleSheet.create({
   },
   labelAccent: {
     color: colors.accent,
+  },
+  labelDanger: {
+    color: colors.danger,
   },
 })
